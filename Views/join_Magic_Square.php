@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Carré Magique</title>
-        <link rel="stylesheet" type="text/css" href="http://localhost:81/Magic_Square/Public/CSS/Style_Coronideas_Fr.css">
+        <title>Rejoindre un Carré Magique</title>
+        <link rel="stylesheet" type="text/css" href="http://51.178.87.117/app/magic_square/Magic_Square_Live/Public/CSS/Style_Coronideas_Fr.css">
     </head>
  
     <body>

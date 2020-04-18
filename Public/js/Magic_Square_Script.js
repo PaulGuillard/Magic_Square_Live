@@ -276,7 +276,7 @@ quitReconfirm.addEventListener('click', function() {
     xhr_quit.open('POST', 'https://www.coronideas.com/View/Backend/Game_Magic_Square_Get_Open_Game_List.php');
 */
 /*    xhr_quit.addEventListener('load', function(e) {*/
-    	window.location.href = "http://51.178.87.117:8087/creer";
+    	window.location.href = "http://51.178.87.117:8087/";
 /*    });*/
 /*
     let form_quit = new FormData();
@@ -288,52 +288,5 @@ quitReconfirm.addEventListener('click', function() {
 	xhr_quit.send(form_quit);*/
 });
 
-/*Execute actions based on namespace methods*/
-/*if (setupForm != '') //Start game from setup
-{
-	setupForm.addEventListener('submit', function(e) { //Get form data and display grid - in this script because requires event listener to perform display and database update
-		e.preventDefault();
-		let playerPositionInDb = 1;
-		playersList.innerHTML = '';
-		playerName = setupInputs[0].value;
-		gridSize = selectGridSize.options[selectGridSize.selectedIndex].value;
-
-		playersList.innerHTML += setupInputs[0].value + '<br/>';
-		playersList.innerHTML += nameInputs[0].value + '<br/>';
-		let Player_Names = [playerName, nameInputs[0]];
-		if (setupInputs[5].value != '') 
-		{
-			numberPlayers += 1;
-			playersList.innerHTML += nameInputs[1].value + '<br/>';
-			Player_Names.push(nameInputs[1]);
-		}
-		if (setupInputs[7].value != '') 
-		{
-			numberPlayers += 1;
-			playersList.innerHTML += nameInputs[2].value + '<br/>';
-			Player_Names.push(nameInputs[2]);
-		}
-		if (setupInputs[9].value != '') 
-		{
-			numberPlayers += 1;
-			playersList.innerHTML += nameInputs[3].value + '<br/>';
-			Player_Names.push(nameInputs[3]);
-		}
-
-
-
-*/
-/* window.addEventListener('unload', function(event) {
-    let xhr_quit = new XMLHttpRequest();
-    xhr_quit.open('POST', 'https://www.coronideas.com/View/Backend/Game_Magic_Square_Get_Open_Game_List.php');
-
-    let form_quit = new FormData();
-
-	form_quit.append('Update_Game_ID', gameID);
-	form_quit.append('Update_Player_Position', playerPositionInDb);
-	form_quit.append('Update_Player_Status', '0');
-
-	xhr_quit.send(form_quit);
-});*/
 
 

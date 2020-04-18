@@ -41,6 +41,11 @@ app.use(function(req, res, next){
     next();
 })
 
+.get('/', function(req, res) {
+    res.header('Content-type', 'text/html');
+    res.sendFile(path.join(__dirname+'/Views/welcome_Magic_Square.php'));
+})
+
 .get('/creer', function(req, res){
     res.header('Content-type', 'text/html');
     res.sendFile(path.join(__dirname+'/Views/setup_Magic_Square.php'));

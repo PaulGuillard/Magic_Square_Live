@@ -1,4 +1,4 @@
-/*.Article_Description
+.Article_Description
 {
 	text-align: left;
 	font-family: 'Montserrat', calibri, serif;
@@ -44,8 +44,8 @@
 .Article_Likes_Block
 {
 	position: relative;
-/*	width: 400px;*/
-/*	background-color: white;
+	width: 400px;
+	background-color: white;
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
@@ -53,9 +53,9 @@
 	    -ms-flex-pack: justify;
 	        justify-content: space-between;
 	float: right;
-	border-radius: 5px;*/
+	border-radius: 5px;
 /*	box-shadow: 0px 0px 3px black;*/
-/*	border: 0px;
+	border: 0px;
 }
 
 .Article_Overview
@@ -130,7 +130,7 @@
 .Article_Picture_Large
 {
 	max-height: 375px;
-}*/
+}
 
 body
 {
