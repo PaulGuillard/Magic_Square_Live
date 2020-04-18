@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Carré Magique</title>
+        <link rel="stylesheet" type="text/css" href="http://51.178.87.117/app/magic_square/Magic_Square/Public/CSS/Style_Coronideas_Fr.css">
+    </head>
+ 
+    <body>
+        <div id="Magic_Square_Game">
+                <h1 class="Game_Active_Title">
+                    Carré Magique - Game ON
+                </h1>
+                <h2>Numéro de la partie : </h2>
+                <h5>(A transmettre aux autres joueurs)</h5>
+                <h3 id="Socket_io_Status" class="Green_Text">
+                
+                </h3>
+                <div id="Game_Start_Button" style="display: none;">
+                    <button class="Button_1">Démarrer la partie</button>
+                </div>
+                <div id="Magic_Grid_Block">
+                    <div id="Magic_Grid">
+                        <div class="Magic_Grid_Line">
+                            <div class="Magic_Grid_Element Droppable">
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div id="Magic_Game_Live_Info">
+                        <div id="Magic_Chosen_Letter_Box" class="Droppable">
+                            <p>
+                                Lettre choisie pour ce tour :
+                            </p>
+                            <div id="Magic_Chosen_Letter">
+                                
+                            </div>
+                        </div>
+
+                        <div id="Magic_Players_List_Block">
+                            <table id="Magic_Other_Players_Turn"><!--   -->
+                                <tr>
+                                    <th>A qui de jouer :</th>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Turn_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Turn_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Turn_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Turn_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Turn_List"></td>
+                                </tr>
+                            </table>
+
+                            <table id="Magic_Other_Players_hasPlayed">
+                                <tr>
+                                    <th> - </th>
+                                </tr>
+                                <tr>
+                                    <td class="Player_hasPlayed_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_hasPlayed_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_hasPlayed_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_hasPlayed_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_hasPlayed_List"></td>
+                                </tr>
+                            </table>
+
+                            <table id="Magic_Other_Players_List"><!--   -->
+                                <tr>
+                                    <th>Nom du joueur</th>
+                                    <th>E-mail</th>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Name_List"></td>
+                                    <td class="Player_Email_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Name_List"></td>
+                                    <td class="Player_Email_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Name_List"></td>
+                                    <td class="Player_Email_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Name_List"></td>
+                                    <td class="Player_Email_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Name_List"></td>
+                                    <td class="Player_Email_List"></td>
+                                </tr>
+                            </table>
+
+                            <table id="Magic_Other_Players_Status">
+                                <tr>
+                                    <th>Statut</th>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Status_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Status_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Status_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Status_List"></td>
+                                </tr>
+                                <tr>
+                                    <td class="Player_Status_List"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="Magic_Letter_Confirm">
+                            <p>
+                                <strong>
+                                    Confirmez-vous que vous souhaitez placer cette lettre ici ? 
+                                    <br/>Aucun changement ne sera possible après cette confirmation.
+                                </strong>
+                            </p>
+                            <p>
+                                <button class="Button_1" id="Magic_Valid_Letter">C'est parti !</button>
+                                <button class="Button_2" id="Magic_Cancel_Letter">Je vais encore réfléchir...</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div id="Magic_Live_Instructions">
+                    
+                </div>
+                <div id="Magic_Letters_List">
+                    <div id="Magic_Letters_Line_1">
+                        
+                    </div>
+                    <div id="Magic_Letters_Line_2">
+                        
+                    </div>
+                    <div id="Magic_Black_Box">
+                        <div class="Magic_Grid_Element Draggable">BB</div>
+                    </div>
+                </div>
+                <div id="Magic_End_Game">
+                        <div id="Magic_End_Game_Req_Block">
+                            <button class="Button_2" id="Magic_End_Game_Request">Quitter le jeu</button>
+                        </div>
+                        <div id="Magic_End_Game_Conf_Block">
+                            Souhaitez-vous vraiment terminer la partie en cours ? <br/><br/>
+                            <button class="Button_2" id="Magic_End_Game_Confirmation">Quitter</button>
+                            <button class="Button_1" id="Magic_End_Game_Cancel">Rester</button>
+                        </div>
+                </div>
+                
+                <aside id="Magic_Square_Rules_Reminder">
+                    Rappel des règles :
+                    <ul>
+                        <li>Le jeu se joue a deux ou plus</li>
+                        <li>Chaque joueur dispose d'une grille vierge, qu'il devra compléter avec des lettres et des cases noires.</li>
+                        <li>Objectif : remplir la grille avec un maximum de mots qui existent !</li>
+                        <li>Déroulement d'un tour : un joueur sélectionne une lettre de l'alphabet ou une case noire. Tous les joueurs (y compris celui qui a choisi la lettre) doivent alors placer cette lettre dans une des cases encore vierges de leur grille. Une fois que tous les joueurs ont placé leur lettre dans leur grille individuelle, c'est au joueur suivant de choisir une lettre ou une case noire. On répète alors ces opérations jusqu'a ce que la grille soit remplie.</li>
+                        <li>Décompte des points : a la fin de la partie, chaque joueur compte les points marqués en suivant la règle suivante : 1 lettre dans un mot réel = 1 point. Seuls comptent les mots a l'horizontale ou a la verticale, dans le sens de lecture conventionnel (pas de mots en diagonale). Les mots qui n'ont pas de sens et les cases noires ne rapportent aucun point.</li>
+                        <li>NB : les verbes conjugués sont autorisés. Il est impossible de déplacer une lettre déja posée sur la grille.</li>
+                    </ul>
+                </aside>
+            </div>
+
+            <aside id="Chat_Panel_Box">
+                <div id="Chat_Panel_Title">
+                    <div>
+                        Discutez ici :
+                    </div>
+                    <div>
+                        <span id="Chat_Reduce_Button">__</span>
+                    </div>
+                </div>
+                <div id="Chat_Panel">
+
+                </div>
+                <form id="Chat_Panel_Write" method="post">
+                    <div><input type="text" name="Chat_New_Message" id="Chat_New_Message"></div>
+                    <div id="Chat_Send_Arrow">➡</div>
+                </form>
+            </aside>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+
+            //Variables definition --------------------------------------------------------------------------------
+            let playerName = '';
+            let playerEmail = '';
+            let letterCount = 0;
+            let maxTurns = 1;
+            let hasPlayedToken = 0;
+            let chatPanel = document.getElementById('Chat_Panel');
+            let firstPlayer = 0;
+            let nextPlayer = 0;
+            let numberPlayers = 0;
+            let firstConnection = 1;
+            let firstConnectionFinished = 0;
+            let pageTitle = document.querySelector('title');
+/*            let chatPanelContent = document.getElementById('Chat_Panel_Content');*/
+            let playersList = document.getElementById('Magic_Other_Players_List');
+            let connectStatus = document.getElementById('Socket_io_Status');
+            let nameList = document.getElementsByClassName('Player_Name_List');
+            let emailList = document.getElementsByClassName('Player_Email_List');
+            let statusList = document.getElementsByClassName('Player_Status_List');
+            let emailsTable = [];
+            let namesTable = [];
+            let gridSize = 5;
+            let chatReduceBtn = document.getElementById('Chat_Reduce_Button');
+            let chatForm = document.getElementById('Chat_Panel_Write');
+            let chatMessage = document.getElementById('Chat_New_Message');
+            let roomNumberElt = document.querySelector('h2');
+            let gameStartBtn = document.getElementById('Game_Start_Button');
+            let playersTurnList = document.getElementsByClassName('Player_Turn_List');
+            let hasPlayedList = document.getElementsByClassName('Player_hasPlayed_List');
+            const magic_square = io.connect('http://51.178.87.117:87/magic_square');
+
+            //Page buttons actions -------------------------------------------------------------------------------
+            chatReduceBtn.addEventListener('click', function() { //Handle size of chat box
+                if (parseFloat(getComputedStyle(chatPanel).height) > 0) 
+                {
+                    chatPanel.style.height = '0px';
+                }
+                else
+                {
+                    chatPanel.style.height = '250px';
+                    chatPanel.scrollTop = chatPanel.scrollHeight;
+                }
+            });
+
+            chatForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                magic_square.emit('chat_message', chatMessage.value);
+                chatPanel.scrollTop = chatPanel.scrollHeight;
+                chatMessage.value = '';
+            });
+
+            gameStartBtn.addEventListener('click', function(){
+                gameStartBtn.style.display = 'none';
+                magic_square.emit('update_names_for_all');
+            });
+
+
+            // Actions to be performed upon connection of a player -----------------------------------------------
+            magic_square.on('connect', function(){
+                connectStatus.innerHTML = 'Vous etes connecté a la partie !';
+                if (firstConnection === 1) 
+                {
+                    magic_square.emit('getPlayersDetails', 'creator');
+                }
+            });
+
+            magic_square.on('playerDetails', function(detailsData){
+                if (firstConnection === 1) {
+                    firstConnection = 0;
+                    for (var i = 0; i < detailsData.friendsList.length; i++)  //Fill players list
+                    {
+                        emailList[i].innerHTML = '';
+                        emailList[i].innerHTML += detailsData.friendsList[i];
+                        emailsTable.push(detailsData.friendsList[i]);
+                    }
+
+                    for (var i = 0; i < statusList.length; i++) {//Initialize status for each player
+                        if (emailList[i].innerHTML != '') {
+                            //Create call to socket to check status of each player
+                            statusList[i].innerHTML = 'En attente de connexion';
+                        }
+                        else
+                        {
+                            statusList[i].innerHTML = '';
+                        }
+                    }
+
+                    let playerIndex = getEmailIndex(detailsData.email); //Live update of status of each player
+                    nameList[playerIndex].innerHTML = playerName = detailsData.pseudo;
+                    playerEmail = detailsData.email;
+                    statusList[playerIndex].innerHTML = '<span style="color: green;">Connecté !</span>';
+                    magic_square.emit('join_game_message', detailsData.email);
+                    gridSize = detailsData.gridSize;
+                    maxTurns = gridSize * gridSize;
+
+                    if (playerEmail === emailsTable[0]) 
+                    {
+                        gameStartBtn.style.display = 'block';
+                    }
+
+                    //Launch game creation
+                    setTimeout(function() {
+                        launchGame(gridSize);
+                        firstConnectionFinished = 1;
+                    }, 500); 
+
+                    roomNumberElt.innerHTML = 'Numéro de la partie : ' + detailsData.room;
+                    pageTitle.innerHTML = playerName + ' - Carré Magique';
+                    magic_square.emit('update_connection', {pseudo: playerName, email: playerEmail});
+                    magic_square.emit('get_connections');
+                }
+            });
+
+            magic_square.on('new_connection', function(joinerData) {
+                let newJoinerIndex = getEmailIndex(joinerData.email);
+                nameList[newJoinerIndex].innerHTML = joinerData.pseudo;
+                statusList[newJoinerIndex].innerHTML = '<span style="color: green;">Connecté !</span>';
+            });
+
+            magic_square.on('connection_check', function() {
+                console.log('Demande de check de connexion recu. Email fourni : ' + playerEmail);
+                magic_square.emit('update_connection', {pseudo: playerName, email: playerEmail});
+            })
+
+            //Background check of joining players ------------------------------------------------------------------
+            magic_square.on('check_correct_player', function(data) {
+                console.log('Demande d\'acceptation recue de la part de ' + data.email);
+                if (emailsTable.indexOf(data.email) > -1) 
+                {
+                    magic_square.emit('player_accepted', {gridSize: gridSize, friendsList: emailsTable, token: data.token});
+                    console.log('Demande validée pour : ' + data.email);
+                }
+            });
+
+
+            //Game actions ------------------------------------------------------------------------------------------
+            magic_square.on('new_live_message_all', function(message) {
+                liveInstructions.innerHTML = message;
+            });
+
+            magic_square.on('update_names', function(){
+                for (var i = 0; i < nameList.length; i++) 
+                {
+                    if (nameList[i].innerHTML != '') 
+                    {
+                        namesTable.push(nameList[i].innerHTML);
+                        numberPlayers += 1;  
+                    } 
+                }
+
+                if (playerEmail === emailsTable[0]) 
+                {
+                    firstPlayer = chooseFirstPlayer();
+                    console.log('Premier joueur : ' + firstPlayer);
+                    magic_square.emit('new_live_message', 'La partie commence !!');
+                    magic_square.emit('choose_player', firstPlayer);
+                }
+            });
+
+            magic_square.on('choose_player_all', function(playerIndex) {
+                if (letterCount === maxTurns) 
+                {
+                    liveInstructions.innerHTML = '<span class="Red_Text">LA PARTIE EST MAINTENANT TERMINEE ! COMPTEZ VOS POINTS !</span>';
+                }
+                else if (letterCount > 0) 
+                {
+                    distributeActions();
+                }
+                else
+                {
+                   setTimeout(distributeActions, 1000); 
+                }
+                
+
+                function distributeActions() {
+                    liveInstructions.innerHTML = 'C\'est à ' + namesTable[playerIndex] + ' de jouer ! ';
+                    for (var i = 0; i < playersTurnList.length; i++) 
+                    {
+                        console.log('e-mail de l\'index '+ i +' : ' + emailList[i].innerHTML);
+                        if (emailList[i].innerHTML != '') 
+                        {
+                            if (i === playerIndex) 
+                            {
+                                playersTurnList[i].innerHTML = '<strong>==></strong>';
+                            }
+                            else
+                            {
+                                playersTurnList[i].innerHTML = ' x ';
+                            }
+                        }
+                    }
+
+                    console.log('Player e-mail : ' + playerEmail);
+                    console.log('Joueur vu par la table des joueurs : ' + emailsTable[playerIndex]);
+
+                    if (playerEmail === emailsTable[playerIndex]) 
+                    {
+                        actionToPerform = 'select';
+                        chosenLetterBox.classList.toggle('box-shadow-on');
+                        chosenLetterBox.classList.toggle('Droppable');
+                        liveInstructions.innerHTML = 'C\'est à vous de jouer ! Choisissez une lettre à jouer et glissez-la dans la boite verte.';
+                    }
+                    else
+                    {
+                        actionToPerform = 'wait';
+                        magicSquareHandler.lockLetters();
+                    }
+
+                    console.log('Action a effectuer : ' + actionToPerform);
+                    nextPlayer = (playerIndex + 1) % numberPlayers;
+                }
+            })
+
+            magic_square.on('play_all', function(letter) {
+                actionToPerform = 'play';
+                liveInstructions.innerHTML = 'PLACEZ LA LETTRE DANS LA GRILLE, PUIS VALIDEZ';
+                magicSquareHandler.releaseLetters();
+                magicSquareHandler.lockLetters(letter);
+                chosenLetter.innerHTML = '';
+                chosenLetter.innerHTML = letter;
+                for (var i = 0; i < nameList.length; i++) {
+                    if (emailsTable[i] != '') 
+                    {
+                        hasPlayedList[i].innerHTML = '...';
+                    }
+                }
+            });
+
+            magic_square.on('has_played_confirm', function(email){
+                console.log(email + ' a joué');
+                for (var i = 0; i < nameList.length; i++) {
+                    if(emailsTable[i] === email)
+                    {
+                        hasPlayedList[i].innerHTML = 'OK';
+                    }
+                }
+
+                if (email === playerEmail) 
+                {
+                    liveInstructions.textContent = 'EN ATTENTE DES AUTRES JOUEURS...';
+                    let allPlayersOK = 1;
+                    console.log('Nombre de joueurs pour le check du jeu : ' + numberPlayers);
+                    for (var i = 0; i < numberPlayers; i++) {
+                        console.log('statut joué : ' + hasPlayedList[i].innerHTML);
+                        if(hasPlayedList[i].innerHTML != 'OK')
+                        {
+                            console.log('Statut detecté : '+hasPlayedList[i].innerHTML)
+                            allPlayersOK = 0;
+                        }
+                    }
+                    console.log('Les joueurs ont tous joué : ' + allPlayersOK);
+                    if (allPlayersOK === 1) 
+                    {
+                        letterCount += 1;
+                        magic_square.emit('check_all_players_play');
+                    }
+                }
+            });
+
+            magic_square.on('play_check', function() {
+                for (var i = 0; i < nameList.length; i++) {
+                    if (emailList[i].innerHTML != '') 
+                    {
+                        hasPlayedList[i].innerHTML = '-';
+                    }
+                }
+                magicSquareHandler.releaseLetters();
+                magic_square.emit('choose_player', nextPlayer);
+            });
+
+
+            //Chat handling ------------------------------------------------------------------------------------------
+            magic_square.on('new_chat_message', function(messageData) {
+                chatPanel.innerHTML += '<strong>' + messageData.pseudo + ' dit : </strong><br/>' + messageData.message + '<br/>';
+                chatPanel.scrollTop = chatPanel.scrollHeight;
+            })
+
+            magic_square.on('redirect_create', function() {//Renvoie vers la page de creation ou accueil si session pas créée
+                window.location.href = 'http://51.178.87.117:87/creer';
+            });
+
+            magic_square.on('redirect_join', function() {//Renvoie vers la page de creation ou accueil si session pas créée
+                window.location.href = 'http://51.178.87.117:87/rejoindre';
+            });
+
+            magic_square.on('newcomer_message', function(message) {//display new connection message in chat
+                chatPanel.innerHTML += '<em style="color: green; padding-bottom: 5px;">' + message + '</em><br/><br/>';
+                chatPanel.scrollTop = chatPanel.scrollHeight;
+            });
+
+            //Action to be performed upon disconnection ----------------------------------------------------------------
+            magic_square.on('disconnected_player', function(playerEmail) {//send disconnection instructions to the server
+                if (firstConnectionFinished === 1) 
+                {
+                    let playerIndex = getEmailIndex(playerEmail);
+                    statusList[playerIndex].innerHTML = '<span style="color: red;">Déconnecté</span>';
+                    chatPanel.innerHTML += '<em style="color: red; padding-bottom: 5px;">' + playerEmail + ' est déconnecté...</em><br/><br/>';
+                    chatPanel.scrollTop = chatPanel.scrollHeight;
+                }
+            });
+
+
+            //General functions for the script --------------------------------------------------------------------------
+            function getEmailIndex(email) {
+                let index = 0;
+                for (var i = 0; i < emailList.length; i++) {
+                    if (emailList[i].innerHTML === email)
+                    {
+                        index = i;
+                    }
+                }
+                return index;
+            }
+
+            function chooseFirstPlayer() {
+                console.log('Nombre de joueurs detecté : ' + numberPlayers);
+                return Math.floor(Math.random() * (numberPlayers - 0.01));
+            }
+        </script>
+
+        <script type="text/javascript" src="http://51.178.87.117/app/magic_square/Magic_Square/Public/js/Magic_Square_Script.js"></script>
+
+    </body>
+</html>
