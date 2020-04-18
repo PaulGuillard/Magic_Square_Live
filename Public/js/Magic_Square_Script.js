@@ -276,7 +276,7 @@ quitReconfirm.addEventListener('click', function() {
     xhr_quit.open('POST', 'https://www.coronideas.com/View/Backend/Game_Magic_Square_Get_Open_Game_List.php');
 */
 /*    xhr_quit.addEventListener('load', function(e) {*/
-    	window.location.href = "http://51.178.87.117:87/creer";
+    	window.location.href = "http://51.178.87.117:8087/creer";
 /*    });*/
 /*
     let form_quit = new FormData();

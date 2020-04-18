@@ -230,7 +230,7 @@
             let gameStartBtn = document.getElementById('Game_Start_Button');
             let playersTurnList = document.getElementsByClassName('Player_Turn_List');
             let hasPlayedList = document.getElementsByClassName('Player_hasPlayed_List');
-            const magic_square = io.connect('http://51.178.87.117:87/magic_square');
+            const magic_square = io.connect('http://51.178.87.117:8087/magic_square');
 
             //Page buttons actions -------------------------------------------------------------------------------
             chatReduceBtn.addEventListener('click', function() { //Handle size of chat box
@@ -479,11 +479,11 @@
             })
 
             magic_square.on('redirect_create', function() {//Renvoie vers la page de creation ou accueil si session pas créée
-                window.location.href = 'http://51.178.87.117:87/creer';
+                window.location.href = 'http://51.178.87.117:8087/creer';
             });
 
             magic_square.on('redirect_join', function() {//Renvoie vers la page de creation ou accueil si session pas créée
-                window.location.href = 'http://51.178.87.117:87/rejoindre';
+                window.location.href = 'http://51.178.87.117:8087/rejoindre';
             });
 
             magic_square.on('newcomer_message', function(message) {//display new connection message in chat
