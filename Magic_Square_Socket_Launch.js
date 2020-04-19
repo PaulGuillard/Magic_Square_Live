@@ -43,12 +43,12 @@ app.use(function(req, res, next){
 
 .get('/', function(req, res) {
     res.header('Content-type', 'text/html');
-    res.sendFile(path.join(__dirname+'/Views/welcome_Magic_Square.php'));
+    res.sendFile('http://51.178.87.117/magic_square/Views/welcome_Magic_Square.php');
 })
 
 .get('/creer', function(req, res){
     res.header('Content-type', 'text/html');
-    res.sendFile(path.join(__dirname+'/Views/setup_Magic_Square.php'));
+    res.sendFile('http://51.178.87.117/magic_square/Views/setup_Magic_Square.php');
 })
 
 .post('/creer/setup', urlencodedParser, function(req, res){
@@ -73,7 +73,7 @@ app.use(function(req, res, next){
 
 .get('/rejoindre', function (req, res) {
     res.header('Content-type', 'text/html');
-    res.sendFile(path.join(__dirname+'/Views/join_Magic_Square.php')); //path permet de definir un chemin absolu, indispensable avec Express
+    res.sendFile('http://51.178.87.117/magic_square/Views/join_Magic_Square.php'); //path permet de definir un chemin absolu, indispensable avec Express
 })
 
 .post('/rejoindre/join', urlencodedParser, function(req, res) {
@@ -99,7 +99,7 @@ app.use(function(req, res, next){
 
 .get('/game_on', function(req, res){
     res.header('Content-type', 'text/html');
-    res.sendFile(path.join(__dirname+'/open_Magic_Square.html')); 
+    res.sendFile('http://51.178.87.117/magic_square/open_Magic_Square.html'); 
 });
 
 const magic_square = io.of('/magic_square');

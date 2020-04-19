@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Accueil - Carré Magique</title>
-        <link rel="stylesheet" type="text/css" href="http://51.178.87.117/root/app/magic_square/Magic_Square_Live/Public/CSS/Style_Coronideas_Fr.css">
+        <link rel="stylesheet" type="text/css" href="http://51.178.87.117/magic_square/Public/CSS/Style_Coronideas_Fr.css">
     </head>
  
     <body>
@@ -11,7 +11,7 @@
             <section class="Filters_Options"></section>
             <div class="Article_Picture_Box">
                 <figure>
-                    <img src="http://51.178.87.117/root/app/magic_square/Magic_Square_Live/Public/Images/Magic_Square.jpg" class="Article_Picture" /><!-- http://51.178.87.117/app/magic_square/Magic_Square_Live -->
+                    <img src="http://51.178.87.117/magic_square/Public/Images/Magic_Square.jpg" class="Article_Picture" /><!-- http://51.178.87.117/app/magic_square/Magic_Square_Live -->
                     <figcaption>Carré magique</figcaption>
                 </figure>
             </div>

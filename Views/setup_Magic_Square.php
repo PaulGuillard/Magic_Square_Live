@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Création - Carré Magique</title>
-        <link rel="stylesheet" type="text/css" href="http://51.178.87.117/app/magic_square/Magic_Square_Live/Public/CSS/Style_Coronideas_Fr.css">
+        <link rel="stylesheet" type="text/css" href="http://51.178.87.117/magic_square/Public/CSS/Style_Coronideas_Fr.css">
     </head>
  
     <body>
@@ -80,7 +80,7 @@
             let creatorEmail = '';
             var friendsList = [];
             var roomID = Math.floor(Math.random()*100000);
-            const game_setup = io.connect('http://localhost:8080/magic_square');
+            const game_setup = io.connect('http://51.178.87.117:8087/magic_square');
 
             setupForm.addEventListener('submit', function(e){
                 e.preventDefault();

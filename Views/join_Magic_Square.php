@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <title>Rejoindre un Carré Magique</title>
-        <link rel="stylesheet" type="text/css" href="http://51.178.87.117/app/magic_square/Magic_Square_Live/Public/CSS/Style_Coronideas_Fr.css">
+        <link rel="stylesheet" type="text/css" href="http://51.178.87.117/magic_square/Public/CSS/Style_Coronideas_Fr.css">
     </head>
  
     <body>
@@ -59,7 +59,7 @@
             let gridSizeElt = document.getElementById('Magic_Square_Grid_Size');
             let emailsElts = document.querySelectorAll('.Magic_Square_Players_Emails');
             var roomIDElt = document.getElementById('Magic_Square_Room_Id');
-            const game_join = io.connect('http://localhost:8080/magic_square');
+            const game_join = io.connect('http://51.178.87.117:8087/magic_square');
             let randomToken = Math.floor(Math.random() * 1235);
 
             game_join.on('new_joiner_valid', function(completeData){
