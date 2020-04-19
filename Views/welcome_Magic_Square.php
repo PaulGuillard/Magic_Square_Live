@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Création - Carré Magique</title>
+        <title>Accueil - Carré Magique</title>
         <link rel="stylesheet" type="text/css" href="http://51.178.87.117/root/app/magic_square/Magic_Square_Live/Public/CSS/Style_Coronideas_Fr.css">
     </head>
  
@@ -33,7 +33,6 @@
                     <p>
                         <a class="Button_1 Link_No_Decoration" href="http://51.178.87.117:8087/creer">Créer une partie</a>
                         <a class="Button_1 Link_No_Decoration" href="http://51.178.87.117:8087/rejoindre">Rejoindre une partie</a>
-                        <a class="Button_1 Link_No_Decoration" href="http://51.178.87.117:8087/">Annuler</a>
                     </p>    
                 </div>
             </div>
