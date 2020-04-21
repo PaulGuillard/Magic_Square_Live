@@ -522,6 +522,29 @@
         </script>
 
         <script type="text/javascript" src="http://51.178.87.117/magic_square/Public/js/Magic_Square_Script.js"></script>
+        <script type="text/javascript">
+            document.addEventListener('keydown', function(e) {
+                if (!e) { /* This will happen in IE */
+                    e = window.e;
+                }
+                if (e.target.tagName != "input") 
+                {
+                    if (e.keyCode == 8) 
+                    {
+                        console.log('Backspace stoppé');
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                }
+            });
+        </script><!-- Deactivation of the backspace shortcut to previous page -->
+        <script type="text/javascript">
+            window.addEventListener('beforeunload', function(e){
+                let message = 'Souhaitez-vous vraiment quitter la page ?';
+                e.returnValue = message;
+                return message;
+            });
+        </script>
 
     </body>
 </html>
