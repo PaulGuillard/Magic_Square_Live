@@ -174,6 +174,7 @@ let magicSquareHandler = { //Creation of a namespace for all methods necessary f
 			   			magicSquareHandler.resetDragDrop(target, currentLetter);
 			   			placeLetterConfirm.style.display = 'none';
 			   			magic_square.emit('has_played', playerEmail);
+			   			magicSquareHandler.lockLetters();
 			   			placeLetterValid.removeEventListener('click', confirmLetter);
 						placeLetterCancel.removeEventListener('click', cancelLetter);
 				    }

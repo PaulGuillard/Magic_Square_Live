@@ -321,17 +321,17 @@
             });
 
             magic_square.on('connection_check', function() {
-                console.log('Demande de check de connexion recu. Email fourni : ' + playerEmail);
+                console.log('Connection request received from: ' + playerEmail);
                 magic_square.emit('update_connection', {pseudo: playerName, email: playerEmail});
             })
 
             //Background check of joining players ------------------------------------------------------------------
             magic_square.on('check_correct_player', function(data) {
-                console.log('Demande d\'acceptation recue de la part de ' + data.email);
+                console.log('Confirm request received from: ' + data.email);
                 if (emailsTable.indexOf(data.email) > -1) 
                 {
                     magic_square.emit('player_accepted', {gridSize: gridSize, friendsList: emailsTable, token: data.token});
-                    console.log('Demande validée pour : ' + data.email);
+                    console.log('Request validated for : ' + data.email);
                 }
             });
 
@@ -354,7 +354,6 @@
                 if (playerEmail === emailsTable[0]) 
                 {
                     firstPlayer = chooseFirstPlayer();
-                    console.log('Premier joueur : ' + firstPlayer);
                     magic_square.emit('new_live_message', 'La partie commence !!');
                     magic_square.emit('choose_player', firstPlayer);
                 }
@@ -379,7 +378,6 @@
                     liveInstructions.innerHTML = 'C\'est à ' + namesTable[playerIndex] + ' de jouer ! ';
                     for (var i = 0; i < playersTurnList.length; i++) 
                     {
-                        console.log('e-mail de l\'index '+ i +' : ' + emailList[i].innerHTML);
                         if (emailList[i].innerHTML != '') 
                         {
                             if (i === playerIndex) 
@@ -392,9 +390,6 @@
                             }
                         }
                     }
-
-                    console.log('Player e-mail : ' + playerEmail);
-                    console.log('Joueur vu par la table des joueurs : ' + emailsTable[playerIndex]);
 
                     if (playerEmail === emailsTable[playerIndex]) 
                     {
@@ -409,7 +404,6 @@
                         magicSquareHandler.lockLetters();
                     }
 
-                    console.log('Action a effectuer : ' + actionToPerform);
                     nextPlayer = (playerIndex + 1) % numberPlayers;
                 }
             })
@@ -430,7 +424,6 @@
             });
 
             magic_square.on('has_played_confirm', function(email){
-                console.log(email + ' a joué');
                 for (var i = 0; i < nameList.length; i++) {
                     if(emailsTable[i] === email)
                     {
@@ -442,16 +435,12 @@
                 {
                     liveInstructions.textContent = 'EN ATTENTE DES AUTRES JOUEURS...';
                     let allPlayersOK = 1;
-                    console.log('Nombre de joueurs pour le check du jeu : ' + numberPlayers);
                     for (var i = 0; i < numberPlayers; i++) {
-                        console.log('statut joué : ' + hasPlayedList[i].innerHTML);
                         if(hasPlayedList[i].innerHTML != 'OK')
                         {
-                            console.log('Statut detecté : '+hasPlayedList[i].innerHTML)
                             allPlayersOK = 0;
                         }
                     }
-                    console.log('Les joueurs ont tous joué : ' + allPlayersOK);
                     if (allPlayersOK === 1) 
                     {
                         letterCount += 1;
@@ -516,7 +505,7 @@
             }
 
             function chooseFirstPlayer() {
-                console.log('Nombre de joueurs detecté : ' + numberPlayers);
+                console.log('Number of players: ' + numberPlayers);
                 return Math.floor(Math.random() * (numberPlayers - 0.01));
             }
         </script>
@@ -531,7 +520,6 @@
                 {
                     if (e.keyCode == 8) 
                     {
-                        console.log('Backspace stoppé');
                         e.preventDefault();
                         e.stopPropagation();
                     }
