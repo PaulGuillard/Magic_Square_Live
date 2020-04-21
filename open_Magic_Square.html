@@ -305,7 +305,7 @@
                     setTimeout(function() {
                         launchGame(gridSize);
                         firstConnectionFinished = 1;
-                    }, 500); 
+                    }, 1000); 
 
                     roomNumberElt.innerHTML = 'Numéro de la partie : ' + detailsData.room;
                     pageTitle.innerHTML = playerName + ' - Carré Magique';
@@ -532,7 +532,7 @@
                 e.returnValue = message;
                 return message;
             });
-        </script>
+        </script><!-- Requests confirm before closing the page -->
 
     </body>
 </html>
