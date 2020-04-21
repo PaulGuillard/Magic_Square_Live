@@ -253,21 +253,13 @@ body
 	bottom: 0;
 	right: 120px;
 /*	height: 150px;*/
-	width: 200px;
+	width: 225px;
 	margin-right: 20px;
 	border: 1px solid black;
 	border-radius: 5px;
 	padding: 6px;
 	background-color: white;
 }
-
-/*#Chat_Panel_Content
-{
-	position: absolute;
-	width: 100%;
-	left: 0;
-	bottom: 0;
-}*/
 
 #Chat_Panel_Title
 {
