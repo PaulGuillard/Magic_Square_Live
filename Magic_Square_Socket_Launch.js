@@ -192,6 +192,10 @@ magic_square.on('connection', function (socket) {
         magic_square.to('Room_'+socket.roomID).emit('connection_check');
     });
 
+    socket.on('get_grid_data', function(gridData) {
+        magic_square.to('Room_'+socket.roomID).emit('get_grid_data_all', gridData);
+    });
+
     socket.on('chat_message', function (message) {
         // On récupère le pseudo de celui qui a cliqué dans les variables de session
         message = ent.encode(message);

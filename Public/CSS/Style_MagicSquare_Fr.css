@@ -1047,6 +1047,26 @@ body
 	padding-left: 10px;
 }
 
+#Magic_Square_End_Results
+{
+	text-align: center;
+	opacity: 0;
+	transition: opacity 0.8s;
+}
+
+#Magic_Square_Game
+{
+	text-align: center;
+}
+
+#Magic_Square_Grid_All_Results
+{
+	display: flex;
+	justify-content: space-around;
+	overflow: auto;
+	margin-top: 80px;
+}
+
 #Magic_Square_Open_Games_List
 {
     border-collapse: collapse;
@@ -1076,12 +1096,6 @@ body
 	width: 80%;
 	min-width: 900px;
 	margin: auto;
-}
-
-#Magic_Square_Game
-{
-	/*display: none;*/
-	text-align: center;
 }
 
 #Magic_Square_Rules

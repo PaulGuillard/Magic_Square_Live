@@ -4,10 +4,6 @@ let lettersBlock = document.getElementById('Magic_Letters_List');
 let lettersLine1 = document.getElementById('Magic_Letters_Line_1');
 let lettersLine2 = document.getElementById('Magic_Letters_Line_2');
 let gameOnTitle = gameBlock.querySelector('h1');
-let gridLine = gameGrid.querySelector('.Magic_Grid_Line');
-let gridLineWidth = parseFloat(getComputedStyle(gameGrid).width);
-let gridLineHeight = parseFloat(getComputedStyle(gameGrid).height);
-let gridEltHtml = gridLine.innerHTML;
 let playersStatusList = document.getElementById('Magic_Players_Live_Status');
 let quitButtonBlock = document.getElementById('Magic_End_Game_Req_Block');
 let quitButton = document.getElementById('Magic_End_Game_Request');
@@ -28,21 +24,36 @@ let alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 /*All functions in a namespace*/
 let magicSquareHandler = { //Creation of a namespace for all methods necessary for Magic Square
-	buildGrid: function(size) { //Build play grid to the requested size
+	buildGrid: function(size, Elt) { //Build play grid to the requested size
+		let gridElt;
+		if(!Elt)
+		{
+			gridElt = gameGrid; //Construction de la grille pour jouer
+		}
+		else
+		{
+			gridElt = Elt;//Construction des grilles pour le display de fin de jeu
+		}
+
+		let gridLine = gridElt.querySelector('.Magic_Grid_Line');
+		let gridEltHtml = gridLine.innerHTML;
+		let gridLineWidth = parseFloat(getComputedStyle(gridElt).width);
+		let gridLineHeight = parseFloat(getComputedStyle(gridElt).height);
 		let newWidth = gridLineWidth;
 		let newHeight = gridLineHeight;
+		
 		for (var i = 0; i < size-1; i++) 
 		{
 			gridLine.innerHTML += gridEltHtml;
 			newWidth += (gridLineWidth - 2); //-2 due to border 1px
 			newHeight += gridLineHeight; //border repeated by html, no need to account for
 		}
-		gameGrid.style.width = newWidth + 'px';
-		gameGrid.style.height = newHeight + 'px';
-		gridLineHtml = gameGrid.innerHTML;
+		gridElt.style.width = newWidth + 'px';
+		gridElt.style.height = newHeight + 'px';
+		gridLineHtml = gridElt.innerHTML;
 		for (var i = 0; i < size - 1; i++) 
 		{
-			gameGrid.innerHTML += gridLineHtml;
+			gridElt.innerHTML += gridLineHtml;
 		}
 	},
 
@@ -175,6 +186,7 @@ let magicSquareHandler = { //Creation of a namespace for all methods necessary f
 			   			placeLetterConfirm.style.display = 'none';
 			   			magic_square.emit('has_played', playerEmail);
 			   			magicSquareHandler.lockLetters();
+			   			letterCount += 1;
 			   			placeLetterValid.removeEventListener('click', confirmLetter);
 						placeLetterCancel.removeEventListener('click', cancelLetter);
 				    }

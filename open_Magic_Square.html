@@ -7,6 +7,17 @@
     </head>
  
     <body>
+        <div id="Magic_Square_End_Results" style="opacity: 0; height: 0px;">
+            <h1 class="Game_Active_Title">
+                Carré Magique - Partie TERMINEE
+            </h1>
+            <h3>
+                Voici les grilles de tous les joueurs :
+            </h3>
+            <div id="Magic_Square_Grid_All_Results">
+                
+            </div>
+        </div>
         <div id="Magic_Square_Game">
                 <h1 class="Game_Active_Title">
                     Carré Magique - Game ON
@@ -230,6 +241,10 @@
             let gameStartBtn = document.getElementById('Game_Start_Button');
             let playersTurnList = document.getElementsByClassName('Player_Turn_List');
             let hasPlayedList = document.getElementsByClassName('Player_hasPlayed_List');
+            let resultsBlock = document.getElementById('Magic_Square_End_Results');
+            let finalGrids = document.getElementById('Magic_Square_Grid_All_Results');
+            let endGameConfirm = 0;
+            let finalGridSend = 0;
             const magic_square = io.connect('http://51.178.87.117:8087/magic_square');
 
             //Page buttons actions -------------------------------------------------------------------------------
@@ -308,6 +323,7 @@
                     }, 1000); 
 
                     roomNumberElt.innerHTML = 'Numéro de la partie : ' + detailsData.room;
+                    console.log(detailsData.room);
                     pageTitle.innerHTML = playerName + ' - Carré Magique';
                     magic_square.emit('update_connection', {pseudo: playerName, email: playerEmail});
                     magic_square.emit('get_connections');
@@ -362,7 +378,20 @@
             magic_square.on('choose_player_all', function(playerIndex) {
                 if (letterCount === maxTurns) 
                 {
-                    liveInstructions.innerHTML = '<span class="Red_Text">LA PARTIE EST MAINTENANT TERMINEE ! COMPTEZ VOS POINTS !</span>';
+                    liveInstructions.innerHTML = '<span class="Red_Text">LA PARTIE EST MAINTENANT TERMINEE !</span>';
+
+                    if (finalGridSend === 0) 
+                    {
+                        finalGridSend = 1;
+                        //Create final grid data
+                        let gridElements = document.getElementsByClassName('Magic_Grid_Element');
+                        let gridContent = [];
+                        for (var i = 0; i < gridElements.length; i++) {
+                            gridContent.push(gridElements[i].textContent);
+                        }
+                        //Send grid data to all
+                        magic_square.emit('get_grid_data', {email: playerEmail, grid: gridContent});
+                    }
                 }
                 else if (letterCount > 0) 
                 {
@@ -414,7 +443,12 @@
                 magicSquareHandler.releaseLetters();
                 magicSquareHandler.lockLetters(letter);
                 chosenLetter.innerHTML = '';
+                chosenLetter.style.backgroundColor = 'white';
                 chosenLetter.innerHTML = letter;
+                if (letter === 'BB') 
+                {
+                    chosenLetter.style.backgroundColor = 'black';
+                }
                 for (var i = 0; i < nameList.length; i++) {
                     if (emailsTable[i] != '') 
                     {
@@ -443,7 +477,6 @@
                     }
                     if (allPlayersOK === 1) 
                     {
-                        letterCount += 1;
                         magic_square.emit('check_all_players_play');
                     }
                 }
@@ -473,6 +506,58 @@
 
             magic_square.on('redirect_join', function() {//Renvoie vers la page de creation ou accueil si session pas créée
                 window.location.href = 'http://51.178.87.117:8087/rejoindre';
+            });
+
+
+            magic_square.on('get_grid_data_all', function(gridData) {
+                endGameConfirm += 1;
+                if (endGameConfirm === 1) //To make sure final grid display is only executed once
+                {
+                    setTimeout(function() {
+                        gameBlock.style.display = 'none';
+                        resultsBlock.style.opacity = 1;
+                    }, 1500);  
+                }
+
+                displayGameEnd(gridData.email, gridData.grid);
+                console.log('Grille créée pour le joueur : ' + gridData.email);
+
+                function displayGameEnd(email, lettersTable) {
+                    //Creation of new grids for each player
+                    let finalGridBlock = document.createElement('div');
+                    finalGridBlock.classList.add('Final_Grid');
+                    let finalGridLine = document.createElement('div');
+                    finalGridLine.classList.add('Magic_Grid_Line');
+                    finalGridBlock.appendChild(finalGridLine);
+                    let finalGridElt = document.createElement('div');
+                    finalGridElt.classList.add('Magic_Grid_Element');
+                    finalGridLine.appendChild(finalGridElt);
+
+                    //Build grid for each player
+                    magicSquareHandler.buildGrid(gridSize, finalGridBlock);
+
+                    //Add letters in the grid
+                    let gridElementsForDisplay = finalGridBlock.getElementsByClassName('Magic_Grid_Element');
+                    for (var i = 0; i < gridElementsForDisplay.length; i++) {
+                        if (lettersTable[i] === 'BB') 
+                        {
+                            gridElementsForDisplay[i].innerHTML = lettersTable[i];
+                            gridElementsForDisplay[i].style.backgroundColor = 'black';
+                        }
+                        else
+                        {
+                            gridElementsForDisplay[i].innerHTML = lettersTable[i];
+                        }
+                    }
+
+                    //Display grid for each player
+                    let finalGridName = document.createElement('h2');
+                    finalGridName.classList.add('Final_Grid_Name');
+                    let nameIdx = getEmailIndex(email);
+                    finalGridName.textContent = namesTable[nameIdx];
+                    finalGridBlock.appendChild(finalGridName);
+                    finalGrids.appendChild(finalGridBlock);
+                }
             });
 
             magic_square.on('newcomer_message', function(message) {//display new connection message in chat
