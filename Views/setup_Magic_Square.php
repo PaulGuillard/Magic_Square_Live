@@ -47,6 +47,11 @@
                     E-mail : <input type="email" name="Magic_Square_Player5_Email" id="Magic_Square_Player5_Email" class="Magic_Square_Email_Input">
                     <br/>
                     <br/>
+                    Joueur qui commence : <input type="text" name="Magic_Square_First_Player" id="Magic_Square_First_Player" class="Magic_Square_Email_Input">
+                    <br/>
+                    <em>(Laisser vide pour une sélection aléatoire du premier joueur)</em>
+                    <br/>
+                    <br/>
                     <input type="text" name="Magic_Square_Id" id="Magic_Square_Id" style="display: none;">
                     <input type="submit" class="Button_1" name="Start_MagicSquare_Button" value="Créer une partie">
                 </p>
@@ -64,6 +69,7 @@
             </aside>
         </div>
 
+        <script type="text/javascript" src="http://51.178.87.117/magic_square/Public/Librairies/PG_General_Library.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script>
             let setupForm = document.getElementById('Magic_Square_Setup_Form');
@@ -74,23 +80,45 @@
             let playerEmail_3 = document.getElementById('Magic_Square_Player3_Email');
             let playerEmail_4 = document.getElementById('Magic_Square_Player4_Email');
             let playerEmail_5 = document.getElementById('Magic_Square_Player5_Email');
+            let firstPlayerInit = document.getElementById('Magic_Square_First_Player');
             let gridSizeElt = document.getElementById('Magic_Square_Size');
             let gridSize = 5;
             var pseudo = '';
             let creatorEmail = '';
             var friendsList = [];
+            let firstPlayerSet = 0;
             var roomID = Math.floor(Math.random()*100000);
             const game_setup = io.connect('http://51.178.87.117:8087/magic_square');
 
             setupForm.addEventListener('submit', function(e){
                 e.preventDefault();
-                pseudo = creatorName.value;
-                creatorEmail = playerEmail_1.value;
-                friendsList = [playerEmail_1.value, playerEmail_2.value, playerEmail_3.value, playerEmail_4.value, playerEmail_5.value];
+                if (PGGeneralLibrary.checkText(creatorName.value)) 
+                {
+                    pseudo = creatorName.value;
+                }
+                
+                if (PGGeneralLibrary.checkEmail(playerEmail_1.value)) 
+                {
+                    creatorEmail = playerEmail_1.value;
+                }
+                
+                if (PGGeneralLibrary.checkEmail(playerEmail_1.value) && PGGeneralLibrary.checkEmail(playerEmail_2.value)) 
+                {
+                    friendsList = [playerEmail_1.value, playerEmail_2.value, playerEmail_3.value, playerEmail_4.value, playerEmail_5.value];
+                }
+                
                 gridSize = gridSizeElt.value;
-                game_setup.emit('new_game', {newpseudo: pseudo, playerEmail: creatorEmail, friends: friendsList, gridSize: gridSize, roomid: roomID, type: 'creator'});
-                //Verifier les entrees : texte, mail, etc
-                console.log('The game creation was submitted');
+
+                if (Number.isInteger(firstPlayerInit.value)) 
+                {
+                    firstPlayerSet = firstPlayerInit.value;
+                }
+                else
+                {
+                    firstPlayerSet = '';
+                }
+                
+                game_setup.emit('new_game', {newpseudo: pseudo, playerEmail: creatorEmail, friends: friendsList, gridSize: gridSize, roomid: roomID, firstIndex: firstPlayerSet, type: 'creator'});
                 setupForm.submit();
             });
         </script>

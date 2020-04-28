@@ -78,7 +78,7 @@
                     pseudo = joinerNameElt.value;
                     joinerEmail = joinerEmailElt.value;
                     roomID = Number(roomIDElt.value);
-                    game_join.emit('new_game', {newpseudo: pseudo, playerEmail: joinerEmail, friends: friends, gridSize: gridSize, roomid: roomID, type: 'joiner'});
+                    game_join.emit('new_game', {newpseudo: pseudo, playerEmail: joinerEmail, friends: friends, gridSize: gridSize, roomid: roomID, firstIndex: '', type: 'joiner'});
                     joinForm.submit();
                 }
             });

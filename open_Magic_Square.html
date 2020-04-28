@@ -220,6 +220,7 @@
             let hasPlayedToken = 0;
             let chatPanel = document.getElementById('Chat_Panel');
             let firstPlayer = 0;
+            let firstPlayerSet = false;
             let nextPlayer = 0;
             let numberPlayers = 0;
             let firstConnection = 1;
@@ -303,6 +304,16 @@
                         }
                     }
 
+                    if (Number.isInteger(detailsData.firstPlayer)) 
+                    {
+                        firstPlayerSet = true;
+                        firstPlayer = detailsData.firstPlayer
+                    }
+                    else
+                    {
+                        firstPlayerSet = false;
+                    }
+
                     let playerIndex = getEmailIndex(detailsData.email); //Live update of status of each player
                     nameList[playerIndex].innerHTML = playerName = detailsData.pseudo;
                     playerEmail = detailsData.email;
@@ -369,7 +380,11 @@
 
                 if (playerEmail === emailsTable[0]) 
                 {
-                    firstPlayer = chooseFirstPlayer();
+                    if (firstPlayerSet === false) 
+                    {
+                        firstPlayer = chooseFirstPlayer();
+                    }
+                    
                     magic_square.emit('new_live_message', 'La partie commence !!');
                     magic_square.emit('choose_player', firstPlayer);
                 }

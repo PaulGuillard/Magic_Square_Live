@@ -124,12 +124,22 @@ magic_square.on('connection', function (socket) {
         socket.pseudo = ent.encode(joinData.newpseudo);
         socket.playerEmail = joinData.playerEmail;
         socket.friendsList = joinData.friends;
-        socket.gridSize = joinData.gridSize;
-        socket.roomID = joinData.roomid;
+        if (Number.isInteger(joinData.gridSize)) 
+        {
+           socket.gridSize = joinData.gridSize; 
+        }
+        if (Number.isInteger(joinData.roomid)) 
+        {
+            socket.roomID = joinData.roomid;
+        }
+        if (Number.isInteger(joinData.firstIndex)) 
+        {
+            socket.firstPlayer = joinData.firstIndex;
+        }
         socket.type = joinData.type;
+        
         if (Number.isInteger(socket.roomID) && socket.friendsList.indexOf(socket.playerEmail) > -1) 
         {
-/*            socket.join('Room_'+socket.roomID);*/
             console.log(socket.pseudo + ' a rejoint la partie no'+socket.roomID+' ! Son email : ' + socket.playerEmail);
         }
 
@@ -159,14 +169,7 @@ magic_square.on('connection', function (socket) {
     socket.on('getPlayersDetails', function() {
         if (typeof(socket.handshake.session.userdata) == 'undefined') 
         {
-            if(socket.type === 'creator')
-            {
-                socket.emit('redirect_create');
-            }
-            else if (socket.type === 'joiner') 
-            {
-                socket.emit('redirect_join');
-            }
+            socket.emit('redirect_join');
         }
         else
         {
@@ -177,10 +180,10 @@ magic_square.on('connection', function (socket) {
             socket.gridSize = joinData.gridSize;
             socket.roomID = joinData.roomid;
             socket.gameStarted = 1;
+            socket.firstPlayer = joinData.firstPlayer;
             console.log('Partie demarree pour ' + socket.pseudo);
-/*            magic_square.to('Room_'+socket.roomID).emit('newcomer_message', socket.pseudo + ' a rejoint la partie ! ');*/
             socket.join('Room_'+socket.roomID);
-            socket.emit('playerDetails', {room: socket.roomID, pseudo: socket.pseudo, email: socket.playerEmail, gridSize: socket.gridSize, friendsList: socket.friendsList});
+            socket.emit('playerDetails', {room: socket.roomID, pseudo: socket.pseudo, email: socket.playerEmail, gridSize: socket.gridSize, friendsList: socket.friendsList, firstPlayer: socket.firstPlayer});
         }
     });
 

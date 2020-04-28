@@ -169,8 +169,6 @@ let magicSquareHandler = { //Creation of a namespace for all methods necessary f
 		    }
 		    else if (actionToPerform === 'play' && target.id != 'Magic_Chosen_Letter_Box' && target.parentNode.id != 'Magic_Chosen_Letter_Box')
 		    {
-		    	console.log(target.id);
-		    	console.log(target.parentNode.id);
 		    	if (alphabet.indexOf(target.innerHTML) === -1) {
 		    		placeLetterConfirm.style.display = 'block';
 		    		target.innerHTML = '';
